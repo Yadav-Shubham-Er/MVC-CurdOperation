@@ -1,0 +1,167 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            DisplayEmployee();
+            $("#btnadd").click(function () {
+                AddEmployee();
+
+                DisplayEmployee();
+            });
+            $("#btnupdate").click(function () {
+                UpdateEmployee();
+
+                DisplayEmployee();
+            });
+            $("#btndelete").click(function () {
+                DeleteEmployee();
+
+                DisplayEmployee();
+            });
+        });
+
+        function AddEmployee() {
+            var id = parseInt($("#txtempid").val());
+            var name = $("#txtname").val();
+            var project = $("#txtproject").val();
+            var st = { "emp_id": id, "emp_name": name, "emp_project": project };
+            $.ajax({
+                url: 'https://localhost:44344/Json/AddEmployee', // we given proper url
+                method: 'post',
+                data: JSON.stringify(st),
+                contentType: 'application/json',
+                success: function (resp) {
+                    alert(resp)
+                }
+            })
+        }
+
+        function DisplayEmployee() {
+            $.ajax({
+                url: 'https://localhost:44344/Json/GetEmployee',
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    $('#tbldata').empty();
+
+                    $.each(resp, function (i, d) {
+                        $("#tbldata").append("<tr><td>" + d.emp_id + "</td><td>" + d.emp_name +
+                            "</td><td>" + d.emp_project + "</td><td>" + "<input type = 'button' value='View' onclick = 'ViewEmployee(" + d.emp_id + ")'/>"
+                            + "<input type = 'button' value = 'X' onclick='DeleteEmployee(" + d.emp_id + ")'/>"+ "</td></tr>");
+                    });
+                }
+            })
+        }
+        function ViewEmployee(r) {
+            $.ajax({
+                url: 'https://localhost:44344/Json/GetEmployeeById/' + r,
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    console.log(resp);
+                    $("#txtempid").val(resp.emp_id);
+                    $("#txtname").val(resp.emp_name);
+                    $("#txtproject").val(resp.emp_project);
+                }
+            });
+        }
+        function UpdateEmployee() {
+            var id = $("#txtempid").val();
+            var name = $("#txtname").val();
+            var project = $("#txtproject").val();
+            var st = { "emp_id": id, "emp_name": name, "emp_project": project };
+
+            //var id = parseInt($("#txtempid").val());
+            //var name = $("#txtname").val();
+            //var project = $("#txtproject").val();
+            //var st = { "emp_id": id, "emp_name": name, "emp_project": project };
+
+            $.ajax({
+                url: 'https://localhost:44344/Json/UpdateEmployee',
+                method: 'post',
+                data: JSON.stringify(st),
+                contentType: 'application/json',
+                success: function (resp) {
+                    alert(resp)
+                    DisplayEmployee();
+                }
+            })
+        }
+        function DeleteEmployee(d) {
+            var i = $("#txtempid").val();
+            $.ajax({
+                url: 'https://localhost:44344/Json/DeleteEmployee/' + d,
+                method: 'get',
+                contentType: 'application/json',
+                success: function (resp) {
+                    alert(resp);
+                    DisplayEmployee();
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+        <h2>
+            Insert the Data
+        </h2>
+
+        <table>
+            <tr>
+                <td>Employee Id</td>
+                <td>
+                    <input type="text" id="txtempid" />
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" id="txtname" />
+                </td>
+            </tr>
+            <tr>
+                <td>Project</td>
+                <td>
+                    <input type="text" id="txtproject" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @*<button id="btnadd">ADD</button>*@
+                    <input type="submit" value="Submit" id="btnadd" />
+                    @*<button id="btnupdate">Update</button>*@
+                    <input type="submit" value="Update" id="btnupdate" />
+                    @*<button id="btndelete">Delete</button>*@
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Project</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbldata">
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
