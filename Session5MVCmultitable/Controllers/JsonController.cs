@@ -9,6 +9,7 @@ using System.Data.Entity.Validation;
 
 namespace Session5MVCmultitable.Controllers
 {
+    //this is comment from vs
     public class JsonController : Controller
     {
         Session5MVCEntities1 db = new Session5MVCEntities1();
