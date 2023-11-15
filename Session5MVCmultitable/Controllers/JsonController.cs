@@ -10,12 +10,17 @@ using System.Data.Entity.Validation;
 namespace Session5MVCmultitable.Controllers
 {
     //this is comment from vs
+    // this is comment2 from vs
     public class JsonController : Controller
     {
         Session5MVCEntities1 db = new Session5MVCEntities1();
         // GET: Json
        
         public ActionResult Create()
+        {
+            return View();
+        }
+        public ActionResult Create1()
         {
             return View();
         }
