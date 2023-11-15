@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Session5MVCmultitable/Views/Json/Create.cshtml
+/Session5MVCmultitable/Views/Json/Create1.cshtml
