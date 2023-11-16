@@ -227,6 +227,7 @@
     <Content Include="Views\PartialViewDemo\PartialViewDemo.cshtml" />
     <Content Include="Views\PartialViewDemo\PartialViewforTest.cshtml" />
     <Content Include="Views\Json\Create1.cshtml" />
+    <Content Include="Views\Json\Create2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

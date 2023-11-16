@@ -24,6 +24,10 @@ namespace Session5MVCmultitable.Controllers
         {
             return View();
         }
+        public ActionResult Create2()
+        {
+            return View();
+        }
         //public ActionResult Index()
         //{
         //    return View();
